@@ -1,0 +1,1053 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="LocationDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Administrateur">
+          <Key>
+            <PropertyRef Name="IdUtilisateurProjetRole" />
+          </Key>
+          <Property Name="IdUtilisateurProjetRole" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdRole" Type="int" Nullable="false" />
+          <Property Name="IdProjet" Type="int" Nullable="false" />
+          <Property Name="IdUtilisateur" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Agence">
+          <Key>
+            <PropertyRef Name="IdAgence" />
+          </Key>
+          <Property Name="IdAgence" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NomCommercial" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="Adresse" Type="nvarchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AgenceRestitution">
+          <Key>
+            <PropertyRef Name="IdAgence" />
+            <PropertyRef Name="IdVoiture" />
+          </Key>
+          <Property Name="IdAgence" Type="int" Nullable="false" />
+          <Property Name="IdVoiture" Type="int" Nullable="false" />
+          <Property Name="Tarif" Type="decimal" Precision="10" Scale="2" />
+        </EntityType>
+        <EntityType Name="Assurance">
+          <Key>
+            <PropertyRef Name="IdAssurance" />
+          </Key>
+          <Property Name="IdAssurance" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Libelle" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="Franchise" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="PrixTtc" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="DepotGarantie" Type="decimal" Precision="10" Scale="2" />
+        </EntityType>
+        <EntityType Name="Categorie_Voiture">
+          <Key>
+            <PropertyRef Name="IdCategorie" />
+          </Key>
+          <Property Name="IdCategorie" Type="int" Nullable="false" />
+          <Property Name="Libelle" Type="nvarchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Client">
+          <Key>
+            <PropertyRef Name="IdClient" />
+          </Key>
+          <Property Name="IdClient" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nom" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="Prenom" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="DateNaissance" Type="date" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="MotDePasse" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="NumeroTelephone" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="DateCreation" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Horaires">
+          <Key>
+            <PropertyRef Name="IdAgence" />
+            <PropertyRef Name="Jour" />
+          </Key>
+          <Property Name="IdAgence" Type="int" Nullable="false" />
+          <Property Name="Jour" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="HeureOuverture" Type="time" Precision="7" Nullable="false" />
+          <Property Name="HeureFermeture" Type="time" Precision="7" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Location">
+          <Key>
+            <PropertyRef Name="IdLocation" />
+          </Key>
+          <Property Name="IdLocation" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdVoiture" Type="int" Nullable="false" />
+          <Property Name="IdClient" Type="int" Nullable="false" />
+          <Property Name="IdOption" Type="int" />
+          <Property Name="DateHeureDebut" Type="datetime" Nullable="false" />
+          <Property Name="DateHeureRestitution" Type="datetime" Nullable="false" />
+          <Property Name="IdAgenceRestitution" Type="int" Nullable="false" />
+          <Property Name="TotalTtc" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="IdPromotion" Type="int" />
+        </EntityType>
+        <EntityType Name="Options">
+          <Key>
+            <PropertyRef Name="IdOption" />
+          </Key>
+          <Property Name="IdOption" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Libelle" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="PrixTTC" Type="decimal" Precision="10" Scale="2" />
+        </EntityType>
+        <EntityType Name="Paiement">
+          <Key>
+            <PropertyRef Name="IdPaiement" />
+          </Key>
+          <Property Name="IdPaiement" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdLocation" Type="int" Nullable="false" />
+          <Property Name="NumeroCarte" Type="nvarchar" MaxLength="19" Nullable="false" />
+          <Property Name="DateExpiration" Type="date" Nullable="false" />
+          <Property Name="CodeVerification" Type="nvarchar" MaxLength="4" Nullable="false" />
+          <Property Name="DatePaiement" Type="datetime" />
+          <Property Name="StatutPaiement" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Parametre">
+          <Key>
+            <PropertyRef Name="IdParametre" />
+          </Key>
+          <Property Name="IdParametre" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CodeParametre" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="Valeur" Type="nvarchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Promotion">
+          <Key>
+            <PropertyRef Name="IdPromotion" />
+          </Key>
+          <Property Name="IdPromotion" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CodePromotion" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Valeur" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="Pourcentage" Type="decimal" Precision="5" Scale="2" />
+        </EntityType>
+        <EntityType Name="Statut_Location">
+          <Key>
+            <PropertyRef Name="IdStatut" />
+          </Key>
+          <Property Name="IdStatut" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Libelle" Type="nvarchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Tarif">
+          <Key>
+            <PropertyRef Name="IdTarif" />
+          </Key>
+          <Property Name="IdTarif" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdVoiture" Type="int" Nullable="false" />
+          <Property Name="JourSemaine" Type="nvarchar" MaxLength="50" />
+          <Property Name="Semaine" Type="int" />
+          <Property Name="TarifTtc" Type="decimal" Precision="10" Scale="2" />
+        </EntityType>
+        <EntityType Name="Voiture">
+          <Key>
+            <PropertyRef Name="IdVoiture" />
+          </Key>
+          <Property Name="IdVoiture" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdCategorie" Type="int" Nullable="false" />
+          <Property Name="IdAgence" Type="int" Nullable="false" />
+          <Property Name="NomCommercial" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="NombrePlaces" Type="int" />
+          <Property Name="NombrePortes" Type="int" />
+          <Property Name="BoiteVitesse" Type="nvarchar" MaxLength="50" />
+          <Property Name="Autonomie" Type="int" />
+          <Property Name="CapaciteCoffre" Type="int" />
+          <Property Name="Carburant" Type="nvarchar" MaxLength="50" />
+          <Property Name="NombreChevaux" Type="int" />
+          <Property Name="KilometrageParDefaut" Type="int" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="DateSortie" Type="date" />
+          <Property Name="DateCreation" Type="datetime" />
+          <Property Name="DateModification" Type="datetime" />
+          <Property Name="Active" Type="bit" />
+          <Property Name="ImageURL" Type="nvarchar" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="VoitureAssurance">
+          <Key>
+            <PropertyRef Name="IdAssurance" />
+            <PropertyRef Name="IdVoiture" />
+          </Key>
+          <Property Name="IdAssurance" Type="int" Nullable="false" />
+          <Property Name="IdVoiture" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="VoitureOptions">
+          <Key>
+            <PropertyRef Name="IdOption" />
+            <PropertyRef Name="IdVoiture" />
+          </Key>
+          <Property Name="IdOption" Type="int" Nullable="false" />
+          <Property Name="IdVoiture" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_AgenceRestitution_Agence">
+          <End Role="Agence" Type="Self.Agence" Multiplicity="1" />
+          <End Role="AgenceRestitution" Type="Self.AgenceRestitution" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Agence">
+              <PropertyRef Name="IdAgence" />
+            </Principal>
+            <Dependent Role="AgenceRestitution">
+              <PropertyRef Name="IdAgence" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AgenceRestitution_Voiture">
+          <End Role="Voiture" Type="Self.Voiture" Multiplicity="1" />
+          <End Role="AgenceRestitution" Type="Self.AgenceRestitution" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Voiture">
+              <PropertyRef Name="IdVoiture" />
+            </Principal>
+            <Dependent Role="AgenceRestitution">
+              <PropertyRef Name="IdVoiture" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Horaires_Agence">
+          <End Role="Agence" Type="Self.Agence" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Horaires" Type="Self.Horaires" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Agence">
+              <PropertyRef Name="IdAgence" />
+            </Principal>
+            <Dependent Role="Horaires">
+              <PropertyRef Name="IdAgence" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Location_Client">
+          <End Role="Client" Type="Self.Client" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Location" Type="Self.Location" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="IdClient" />
+            </Principal>
+            <Dependent Role="Location">
+              <PropertyRef Name="IdClient" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Location_Option">
+          <End Role="Options" Type="Self.Options" Multiplicity="0..1" />
+          <End Role="Location" Type="Self.Location" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Options">
+              <PropertyRef Name="IdOption" />
+            </Principal>
+            <Dependent Role="Location">
+              <PropertyRef Name="IdOption" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Location_Promotion">
+          <End Role="Promotion" Type="Self.Promotion" Multiplicity="0..1" />
+          <End Role="Location" Type="Self.Location" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Promotion">
+              <PropertyRef Name="IdPromotion" />
+            </Principal>
+            <Dependent Role="Location">
+              <PropertyRef Name="IdPromotion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Location_Voiture">
+          <End Role="Voiture" Type="Self.Voiture" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Location" Type="Self.Location" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Voiture">
+              <PropertyRef Name="IdVoiture" />
+            </Principal>
+            <Dependent Role="Location">
+              <PropertyRef Name="IdVoiture" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Paiement_Location">
+          <End Role="Location" Type="Self.Location" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Paiement" Type="Self.Paiement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Location">
+              <PropertyRef Name="IdLocation" />
+            </Principal>
+            <Dependent Role="Paiement">
+              <PropertyRef Name="IdLocation" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tarif_Voiture">
+          <End Role="Voiture" Type="Self.Voiture" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Tarif" Type="Self.Tarif" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Voiture">
+              <PropertyRef Name="IdVoiture" />
+            </Principal>
+            <Dependent Role="Tarif">
+              <PropertyRef Name="IdVoiture" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Voiture_Agence">
+          <End Role="Agence" Type="Self.Agence" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Voiture" Type="Self.Voiture" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Agence">
+              <PropertyRef Name="IdAgence" />
+            </Principal>
+            <Dependent Role="Voiture">
+              <PropertyRef Name="IdAgence" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VoitureAssurance_Assurance">
+          <End Role="Assurance" Type="Self.Assurance" Multiplicity="1" />
+          <End Role="VoitureAssurance" Type="Self.VoitureAssurance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Assurance">
+              <PropertyRef Name="IdAssurance" />
+            </Principal>
+            <Dependent Role="VoitureAssurance">
+              <PropertyRef Name="IdAssurance" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VoitureAssurance_Voiture">
+          <End Role="Voiture" Type="Self.Voiture" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="VoitureAssurance" Type="Self.VoitureAssurance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Voiture">
+              <PropertyRef Name="IdVoiture" />
+            </Principal>
+            <Dependent Role="VoitureAssurance">
+              <PropertyRef Name="IdVoiture" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VoitureOptions_Options">
+          <End Role="Options" Type="Self.Options" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="VoitureOptions" Type="Self.VoitureOptions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Options">
+              <PropertyRef Name="IdOption" />
+            </Principal>
+            <Dependent Role="VoitureOptions">
+              <PropertyRef Name="IdOption" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VoitureOptions_Voiture">
+          <End Role="Voiture" Type="Self.Voiture" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="VoitureOptions" Type="Self.VoitureOptions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Voiture">
+              <PropertyRef Name="IdVoiture" />
+            </Principal>
+            <Dependent Role="VoitureOptions">
+              <PropertyRef Name="IdVoiture" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="LocationDBModelStoreContainer">
+          <EntitySet Name="Administrateur" EntityType="Self.Administrateur" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Agence" EntityType="Self.Agence" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AgenceRestitution" EntityType="Self.AgenceRestitution" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Assurance" EntityType="Self.Assurance" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Categorie_Voiture" EntityType="Self.Categorie_Voiture" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Client" EntityType="Self.Client" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Horaires" EntityType="Self.Horaires" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Location" EntityType="Self.Location" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Options" EntityType="Self.Options" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Paiement" EntityType="Self.Paiement" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Parametre" EntityType="Self.Parametre" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Promotion" EntityType="Self.Promotion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Statut_Location" EntityType="Self.Statut_Location" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tarif" EntityType="Self.Tarif" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Voiture" EntityType="Self.Voiture" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="VoitureAssurance" EntityType="Self.VoitureAssurance" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="VoitureOptions" EntityType="Self.VoitureOptions" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_AgenceRestitution_Agence" Association="Self.FK_AgenceRestitution_Agence">
+            <End Role="Agence" EntitySet="Agence" />
+            <End Role="AgenceRestitution" EntitySet="AgenceRestitution" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AgenceRestitution_Voiture" Association="Self.FK_AgenceRestitution_Voiture">
+            <End Role="Voiture" EntitySet="Voiture" />
+            <End Role="AgenceRestitution" EntitySet="AgenceRestitution" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Horaires_Agence" Association="Self.FK_Horaires_Agence">
+            <End Role="Agence" EntitySet="Agence" />
+            <End Role="Horaires" EntitySet="Horaires" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Location_Client" Association="Self.FK_Location_Client">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="Location" EntitySet="Location" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Location_Option" Association="Self.FK_Location_Option">
+            <End Role="Options" EntitySet="Options" />
+            <End Role="Location" EntitySet="Location" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Location_Promotion" Association="Self.FK_Location_Promotion">
+            <End Role="Promotion" EntitySet="Promotion" />
+            <End Role="Location" EntitySet="Location" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Location_Voiture" Association="Self.FK_Location_Voiture">
+            <End Role="Voiture" EntitySet="Voiture" />
+            <End Role="Location" EntitySet="Location" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Paiement_Location" Association="Self.FK_Paiement_Location">
+            <End Role="Location" EntitySet="Location" />
+            <End Role="Paiement" EntitySet="Paiement" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tarif_Voiture" Association="Self.FK_Tarif_Voiture">
+            <End Role="Voiture" EntitySet="Voiture" />
+            <End Role="Tarif" EntitySet="Tarif" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Voiture_Agence" Association="Self.FK_Voiture_Agence">
+            <End Role="Agence" EntitySet="Agence" />
+            <End Role="Voiture" EntitySet="Voiture" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VoitureAssurance_Assurance" Association="Self.FK_VoitureAssurance_Assurance">
+            <End Role="Assurance" EntitySet="Assurance" />
+            <End Role="VoitureAssurance" EntitySet="VoitureAssurance" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VoitureAssurance_Voiture" Association="Self.FK_VoitureAssurance_Voiture">
+            <End Role="Voiture" EntitySet="Voiture" />
+            <End Role="VoitureAssurance" EntitySet="VoitureAssurance" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VoitureOptions_Options" Association="Self.FK_VoitureOptions_Options">
+            <End Role="Options" EntitySet="Options" />
+            <End Role="VoitureOptions" EntitySet="VoitureOptions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VoitureOptions_Voiture" Association="Self.FK_VoitureOptions_Voiture">
+            <End Role="Voiture" EntitySet="Voiture" />
+            <End Role="VoitureOptions" EntitySet="VoitureOptions" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="LocationDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Administrateur">
+          <Key>
+            <PropertyRef Name="IdUtilisateurProjetRole" />
+          </Key>
+          <Property Name="IdUtilisateurProjetRole" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdRole" Type="Int32" Nullable="false" />
+          <Property Name="IdProjet" Type="Int32" Nullable="false" />
+          <Property Name="IdUtilisateur" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Agence">
+          <Key>
+            <PropertyRef Name="IdAgence" />
+          </Key>
+          <Property Name="IdAgence" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NomCommercial" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Adresse" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="AgenceRestitution" Relationship="Self.FK_AgenceRestitution_Agence" FromRole="Agence" ToRole="AgenceRestitution" />
+          <NavigationProperty Name="Horaires" Relationship="Self.FK_Horaires_Agence" FromRole="Agence" ToRole="Horaires" />
+          <NavigationProperty Name="Voiture" Relationship="Self.FK_Voiture_Agence" FromRole="Agence" ToRole="Voiture" />
+        </EntityType>
+        <EntityType Name="AgenceRestitution">
+          <Key>
+            <PropertyRef Name="IdAgence" />
+            <PropertyRef Name="IdVoiture" />
+          </Key>
+          <Property Name="IdAgence" Type="Int32" Nullable="false" />
+          <Property Name="IdVoiture" Type="Int32" Nullable="false" />
+          <Property Name="Tarif" Type="Decimal" Precision="10" Scale="2" />
+          <NavigationProperty Name="Agence" Relationship="Self.FK_AgenceRestitution_Agence" FromRole="AgenceRestitution" ToRole="Agence" />
+          <NavigationProperty Name="Voiture" Relationship="Self.FK_AgenceRestitution_Voiture" FromRole="AgenceRestitution" ToRole="Voiture" />
+        </EntityType>
+        <EntityType Name="Categorie_Voiture">
+          <Key>
+            <PropertyRef Name="IdCategorie" />
+          </Key>
+          <Property Name="IdCategorie" Type="Int32" Nullable="false" />
+          <Property Name="Libelle" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Client">
+          <Key>
+            <PropertyRef Name="IdClient" />
+          </Key>
+          <Property Name="IdClient" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nom" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Prenom" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DateNaissance" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Email" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="MotDePasse" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="NumeroTelephone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DateCreation" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Location" Relationship="Self.FK_Location_Client" FromRole="Client" ToRole="Location" />
+        </EntityType>
+        <EntityType Name="Horaires">
+          <Key>
+            <PropertyRef Name="IdAgence" />
+            <PropertyRef Name="Jour" />
+          </Key>
+          <Property Name="IdAgence" Type="Int32" Nullable="false" />
+          <Property Name="Jour" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="HeureOuverture" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="HeureFermeture" Type="Time" Nullable="false" Precision="7" />
+          <NavigationProperty Name="Agence" Relationship="Self.FK_Horaires_Agence" FromRole="Horaires" ToRole="Agence" />
+        </EntityType>
+        <EntityType Name="Location">
+          <Key>
+            <PropertyRef Name="IdLocation" />
+          </Key>
+          <Property Name="IdLocation" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdVoiture" Type="Int32" Nullable="false" />
+          <Property Name="IdClient" Type="Int32" Nullable="false" />
+          <Property Name="IdOption" Type="Int32" />
+          <Property Name="DateHeureDebut" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DateHeureRestitution" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="IdAgenceRestitution" Type="Int32" Nullable="false" />
+          <Property Name="TotalTtc" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="IdPromotion" Type="Int32" />
+          <NavigationProperty Name="Client" Relationship="Self.FK_Location_Client" FromRole="Location" ToRole="Client" />
+          <NavigationProperty Name="Options" Relationship="Self.FK_Location_Option" FromRole="Location" ToRole="Options" />
+          <NavigationProperty Name="Promotion" Relationship="Self.FK_Location_Promotion" FromRole="Location" ToRole="Promotion" />
+          <NavigationProperty Name="Voiture" Relationship="Self.FK_Location_Voiture" FromRole="Location" ToRole="Voiture" />
+          <NavigationProperty Name="Paiement" Relationship="Self.FK_Paiement_Location" FromRole="Location" ToRole="Paiement" />
+        </EntityType>
+        <EntityType Name="Options">
+          <Key>
+            <PropertyRef Name="IdOption" />
+          </Key>
+          <Property Name="IdOption" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Libelle" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PrixTTC" Type="Decimal" Precision="10" Scale="2" />
+          <NavigationProperty Name="Location" Relationship="Self.FK_Location_Option" FromRole="Options" ToRole="Location" />
+          <NavigationProperty Name="Voiture" Relationship="LocationDBModel.VoitureOptions" FromRole="Options" ToRole="Voiture" />
+        </EntityType>
+        <EntityType Name="Paiement">
+          <Key>
+            <PropertyRef Name="IdPaiement" />
+          </Key>
+          <Property Name="IdPaiement" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdLocation" Type="Int32" Nullable="false" />
+          <Property Name="NumeroCarte" Type="String" MaxLength="19" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DateExpiration" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="CodeVerification" Type="String" MaxLength="4" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DatePaiement" Type="DateTime" Precision="3" />
+          <Property Name="StatutPaiement" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Location" Relationship="Self.FK_Paiement_Location" FromRole="Paiement" ToRole="Location" />
+        </EntityType>
+        <EntityType Name="Parametre">
+          <Key>
+            <PropertyRef Name="IdParametre" />
+          </Key>
+          <Property Name="IdParametre" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CodeParametre" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Valeur" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Promotion">
+          <Key>
+            <PropertyRef Name="IdPromotion" />
+          </Key>
+          <Property Name="IdPromotion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CodePromotion" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Valeur" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="Pourcentage" Type="Decimal" Precision="5" Scale="2" />
+          <NavigationProperty Name="Location" Relationship="Self.FK_Location_Promotion" FromRole="Promotion" ToRole="Location" />
+        </EntityType>
+        <EntityType Name="Statut_Location">
+          <Key>
+            <PropertyRef Name="IdStatut" />
+          </Key>
+          <Property Name="IdStatut" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Libelle" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Voiture">
+          <Key>
+            <PropertyRef Name="IdVoiture" />
+          </Key>
+          <Property Name="IdVoiture" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdCategorie" Type="Int32" Nullable="false" />
+          <Property Name="IdAgence" Type="Int32" Nullable="false" />
+          <Property Name="NomCommercial" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="NombrePlaces" Type="Int32" />
+          <Property Name="NombrePortes" Type="Int32" />
+          <Property Name="BoiteVitesse" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Autonomie" Type="Int32" />
+          <Property Name="CapaciteCoffre" Type="Int32" />
+          <Property Name="Carburant" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="NombreChevaux" Type="Int32" />
+          <Property Name="KilometrageParDefaut" Type="Int32" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DateSortie" Type="DateTime" Precision="0" />
+          <Property Name="DateCreation" Type="DateTime" Precision="3" />
+          <Property Name="DateModification" Type="DateTime" Precision="3" />
+          <Property Name="Active" Type="Boolean" />
+          <Property Name="ImageURL" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Agence" Relationship="Self.FK_Voiture_Agence" FromRole="Voiture" ToRole="Agence" />
+          <NavigationProperty Name="AgenceRestitution" Relationship="Self.FK_AgenceRestitution_Voiture" FromRole="Voiture" ToRole="AgenceRestitution" />
+          <NavigationProperty Name="Location" Relationship="Self.FK_Location_Voiture" FromRole="Voiture" ToRole="Location" />
+          <NavigationProperty Name="Tarif" Relationship="LocationDBModel.FK_Tarif_Voiture" FromRole="Voiture" ToRole="Tarif" />
+          <NavigationProperty Name="Assurance" Relationship="LocationDBModel.VoitureAssurance" FromRole="Voiture" ToRole="Assurance" />
+          <NavigationProperty Name="Options" Relationship="LocationDBModel.VoitureOptions" FromRole="Voiture" ToRole="Options" />
+        </EntityType>
+        <Association Name="FK_AgenceRestitution_Agence">
+          <End Role="Agence" Type="Self.Agence" Multiplicity="1" />
+          <End Role="AgenceRestitution" Type="Self.AgenceRestitution" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Agence">
+              <PropertyRef Name="IdAgence" />
+            </Principal>
+            <Dependent Role="AgenceRestitution">
+              <PropertyRef Name="IdAgence" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Horaires_Agence">
+          <End Role="Agence" Type="Self.Agence" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Horaires" Type="Self.Horaires" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Agence">
+              <PropertyRef Name="IdAgence" />
+            </Principal>
+            <Dependent Role="Horaires">
+              <PropertyRef Name="IdAgence" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Voiture_Agence">
+          <End Role="Agence" Type="Self.Agence" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Voiture" Type="Self.Voiture" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Agence">
+              <PropertyRef Name="IdAgence" />
+            </Principal>
+            <Dependent Role="Voiture">
+              <PropertyRef Name="IdAgence" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AgenceRestitution_Voiture">
+          <End Role="Voiture" Type="Self.Voiture" Multiplicity="1" />
+          <End Role="AgenceRestitution" Type="Self.AgenceRestitution" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Voiture">
+              <PropertyRef Name="IdVoiture" />
+            </Principal>
+            <Dependent Role="AgenceRestitution">
+              <PropertyRef Name="IdVoiture" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Location_Client">
+          <End Role="Client" Type="Self.Client" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Location" Type="Self.Location" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="IdClient" />
+            </Principal>
+            <Dependent Role="Location">
+              <PropertyRef Name="IdClient" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Location_Option">
+          <End Role="Options" Type="Self.Options" Multiplicity="0..1" />
+          <End Role="Location" Type="Self.Location" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Options">
+              <PropertyRef Name="IdOption" />
+            </Principal>
+            <Dependent Role="Location">
+              <PropertyRef Name="IdOption" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Location_Promotion">
+          <End Role="Promotion" Type="Self.Promotion" Multiplicity="0..1" />
+          <End Role="Location" Type="Self.Location" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Promotion">
+              <PropertyRef Name="IdPromotion" />
+            </Principal>
+            <Dependent Role="Location">
+              <PropertyRef Name="IdPromotion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Location_Voiture">
+          <End Role="Voiture" Type="Self.Voiture" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Location" Type="Self.Location" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Voiture">
+              <PropertyRef Name="IdVoiture" />
+            </Principal>
+            <Dependent Role="Location">
+              <PropertyRef Name="IdVoiture" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Paiement_Location">
+          <End Role="Location" Type="Self.Location" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Paiement" Type="Self.Paiement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Location">
+              <PropertyRef Name="IdLocation" />
+            </Principal>
+            <Dependent Role="Paiement">
+              <PropertyRef Name="IdLocation" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="LocationDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Administrateur" EntityType="Self.Administrateur" />
+          <EntitySet Name="Agence" EntityType="Self.Agence" />
+          <EntitySet Name="AgenceRestitution" EntityType="Self.AgenceRestitution" />
+          <EntitySet Name="Categorie_Voiture" EntityType="Self.Categorie_Voiture" />
+          <EntitySet Name="Client" EntityType="Self.Client" />
+          <EntitySet Name="Horaires" EntityType="Self.Horaires" />
+          <EntitySet Name="Location" EntityType="Self.Location" />
+          <EntitySet Name="Options" EntityType="Self.Options" />
+          <EntitySet Name="Paiement" EntityType="Self.Paiement" />
+          <EntitySet Name="Parametre" EntityType="Self.Parametre" />
+          <EntitySet Name="Promotion" EntityType="Self.Promotion" />
+          <EntitySet Name="Statut_Location" EntityType="Self.Statut_Location" />
+          <EntitySet Name="Voiture" EntityType="Self.Voiture" />
+          <AssociationSet Name="FK_AgenceRestitution_Agence" Association="Self.FK_AgenceRestitution_Agence">
+            <End Role="Agence" EntitySet="Agence" />
+            <End Role="AgenceRestitution" EntitySet="AgenceRestitution" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Horaires_Agence" Association="Self.FK_Horaires_Agence">
+            <End Role="Agence" EntitySet="Agence" />
+            <End Role="Horaires" EntitySet="Horaires" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Voiture_Agence" Association="Self.FK_Voiture_Agence">
+            <End Role="Agence" EntitySet="Agence" />
+            <End Role="Voiture" EntitySet="Voiture" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AgenceRestitution_Voiture" Association="Self.FK_AgenceRestitution_Voiture">
+            <End Role="Voiture" EntitySet="Voiture" />
+            <End Role="AgenceRestitution" EntitySet="AgenceRestitution" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Location_Client" Association="Self.FK_Location_Client">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="Location" EntitySet="Location" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Location_Option" Association="Self.FK_Location_Option">
+            <End Role="Options" EntitySet="Options" />
+            <End Role="Location" EntitySet="Location" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Location_Promotion" Association="Self.FK_Location_Promotion">
+            <End Role="Promotion" EntitySet="Promotion" />
+            <End Role="Location" EntitySet="Location" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Location_Voiture" Association="Self.FK_Location_Voiture">
+            <End Role="Voiture" EntitySet="Voiture" />
+            <End Role="Location" EntitySet="Location" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Paiement_Location" Association="Self.FK_Paiement_Location">
+            <End Role="Location" EntitySet="Location" />
+            <End Role="Paiement" EntitySet="Paiement" />
+          </AssociationSet>
+          <EntitySet Name="Tarif" EntityType="LocationDBModel.Tarif" />
+          <AssociationSet Name="FK_Tarif_Voiture" Association="LocationDBModel.FK_Tarif_Voiture">
+            <End Role="Voiture" EntitySet="Voiture" />
+            <End Role="Tarif" EntitySet="Tarif" />
+          </AssociationSet>
+          <EntitySet Name="Assurance" EntityType="LocationDBModel.Assurance" />
+          <AssociationSet Name="VoitureAssurance" Association="LocationDBModel.VoitureAssurance">
+            <End Role="Assurance" EntitySet="Assurance" />
+            <End Role="Voiture" EntitySet="Voiture" />
+          </AssociationSet>
+          <AssociationSet Name="VoitureOptions" Association="LocationDBModel.VoitureOptions">
+            <End Role="Options" EntitySet="Options" />
+            <End Role="Voiture" EntitySet="Voiture" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Tarif">
+          <Key>
+            <PropertyRef Name="IdTarif" />
+          </Key>
+          <Property Name="IdTarif" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdVoiture" Type="Int32" Nullable="false" />
+          <Property Name="JourSemaine" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Semaine" Type="Int32" />
+          <Property Name="TarifTtc" Type="Decimal" Precision="10" Scale="2" />
+          <NavigationProperty Name="Voiture" Relationship="LocationDBModel.FK_Tarif_Voiture" FromRole="Tarif" ToRole="Voiture" />
+        </EntityType>
+        <Association Name="FK_Tarif_Voiture">
+          <End Type="LocationDBModel.Voiture" Role="Voiture" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="LocationDBModel.Tarif" Role="Tarif" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Voiture">
+              <PropertyRef Name="IdVoiture" />
+            </Principal>
+            <Dependent Role="Tarif">
+              <PropertyRef Name="IdVoiture" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Assurance">
+          <Key>
+            <PropertyRef Name="IdAssurance" />
+          </Key>
+          <Property Name="IdAssurance" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Libelle" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Franchise" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="PrixTtc" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DepotGarantie" Type="Decimal" Precision="10" Scale="2" />
+          <NavigationProperty Name="Voiture" Relationship="LocationDBModel.VoitureAssurance" FromRole="Assurance" ToRole="Voiture" />
+        </EntityType>
+        <Association Name="VoitureAssurance">
+          <End Type="LocationDBModel.Assurance" Role="Assurance" Multiplicity="*" />
+          <End Type="LocationDBModel.Voiture" Role="Voiture" Multiplicity="*" />
+        </Association>
+        <Association Name="VoitureOptions">
+          <End Type="LocationDBModel.Options" Role="Options" Multiplicity="*" />
+          <End Type="LocationDBModel.Voiture" Role="Voiture" Multiplicity="*" />
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="LocationDBModelStoreContainer" CdmEntityContainer="LocationDBEntities">
+          <EntitySetMapping Name="Administrateur">
+            <EntityTypeMapping TypeName="LocationDBModel.Administrateur">
+              <MappingFragment StoreEntitySet="Administrateur">
+                <ScalarProperty Name="IdUtilisateurProjetRole" ColumnName="IdUtilisateurProjetRole" />
+                <ScalarProperty Name="IdRole" ColumnName="IdRole" />
+                <ScalarProperty Name="IdProjet" ColumnName="IdProjet" />
+                <ScalarProperty Name="IdUtilisateur" ColumnName="IdUtilisateur" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Agence">
+            <EntityTypeMapping TypeName="LocationDBModel.Agence">
+              <MappingFragment StoreEntitySet="Agence">
+                <ScalarProperty Name="IdAgence" ColumnName="IdAgence" />
+                <ScalarProperty Name="NomCommercial" ColumnName="NomCommercial" />
+                <ScalarProperty Name="Adresse" ColumnName="Adresse" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AgenceRestitution">
+            <EntityTypeMapping TypeName="LocationDBModel.AgenceRestitution">
+              <MappingFragment StoreEntitySet="AgenceRestitution">
+                <ScalarProperty Name="IdAgence" ColumnName="IdAgence" />
+                <ScalarProperty Name="IdVoiture" ColumnName="IdVoiture" />
+                <ScalarProperty Name="Tarif" ColumnName="Tarif" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Categorie_Voiture">
+            <EntityTypeMapping TypeName="LocationDBModel.Categorie_Voiture">
+              <MappingFragment StoreEntitySet="Categorie_Voiture">
+                <ScalarProperty Name="IdCategorie" ColumnName="IdCategorie" />
+                <ScalarProperty Name="Libelle" ColumnName="Libelle" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Client">
+            <EntityTypeMapping TypeName="LocationDBModel.Client">
+              <MappingFragment StoreEntitySet="Client">
+                <ScalarProperty Name="IdClient" ColumnName="IdClient" />
+                <ScalarProperty Name="Nom" ColumnName="Nom" />
+                <ScalarProperty Name="Prenom" ColumnName="Prenom" />
+                <ScalarProperty Name="DateNaissance" ColumnName="DateNaissance" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="MotDePasse" ColumnName="MotDePasse" />
+                <ScalarProperty Name="NumeroTelephone" ColumnName="NumeroTelephone" />
+                <ScalarProperty Name="DateCreation" ColumnName="DateCreation" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Horaires">
+            <EntityTypeMapping TypeName="LocationDBModel.Horaires">
+              <MappingFragment StoreEntitySet="Horaires">
+                <ScalarProperty Name="IdAgence" ColumnName="IdAgence" />
+                <ScalarProperty Name="Jour" ColumnName="Jour" />
+                <ScalarProperty Name="HeureOuverture" ColumnName="HeureOuverture" />
+                <ScalarProperty Name="HeureFermeture" ColumnName="HeureFermeture" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Location">
+            <EntityTypeMapping TypeName="LocationDBModel.Location">
+              <MappingFragment StoreEntitySet="Location">
+                <ScalarProperty Name="IdLocation" ColumnName="IdLocation" />
+                <ScalarProperty Name="IdVoiture" ColumnName="IdVoiture" />
+                <ScalarProperty Name="IdClient" ColumnName="IdClient" />
+                <ScalarProperty Name="IdOption" ColumnName="IdOption" />
+                <ScalarProperty Name="DateHeureDebut" ColumnName="DateHeureDebut" />
+                <ScalarProperty Name="DateHeureRestitution" ColumnName="DateHeureRestitution" />
+                <ScalarProperty Name="IdAgenceRestitution" ColumnName="IdAgenceRestitution" />
+                <ScalarProperty Name="TotalTtc" ColumnName="TotalTtc" />
+                <ScalarProperty Name="IdPromotion" ColumnName="IdPromotion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Options">
+            <EntityTypeMapping TypeName="LocationDBModel.Options">
+              <MappingFragment StoreEntitySet="Options">
+                <ScalarProperty Name="IdOption" ColumnName="IdOption" />
+                <ScalarProperty Name="Libelle" ColumnName="Libelle" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="PrixTTC" ColumnName="PrixTTC" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Paiement">
+            <EntityTypeMapping TypeName="LocationDBModel.Paiement">
+              <MappingFragment StoreEntitySet="Paiement">
+                <ScalarProperty Name="IdPaiement" ColumnName="IdPaiement" />
+                <ScalarProperty Name="IdLocation" ColumnName="IdLocation" />
+                <ScalarProperty Name="NumeroCarte" ColumnName="NumeroCarte" />
+                <ScalarProperty Name="DateExpiration" ColumnName="DateExpiration" />
+                <ScalarProperty Name="CodeVerification" ColumnName="CodeVerification" />
+                <ScalarProperty Name="DatePaiement" ColumnName="DatePaiement" />
+                <ScalarProperty Name="StatutPaiement" ColumnName="StatutPaiement" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Parametre">
+            <EntityTypeMapping TypeName="LocationDBModel.Parametre">
+              <MappingFragment StoreEntitySet="Parametre">
+                <ScalarProperty Name="IdParametre" ColumnName="IdParametre" />
+                <ScalarProperty Name="CodeParametre" ColumnName="CodeParametre" />
+                <ScalarProperty Name="Valeur" ColumnName="Valeur" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Promotion">
+            <EntityTypeMapping TypeName="LocationDBModel.Promotion">
+              <MappingFragment StoreEntitySet="Promotion">
+                <ScalarProperty Name="IdPromotion" ColumnName="IdPromotion" />
+                <ScalarProperty Name="CodePromotion" ColumnName="CodePromotion" />
+                <ScalarProperty Name="Valeur" ColumnName="Valeur" />
+                <ScalarProperty Name="Pourcentage" ColumnName="Pourcentage" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Statut_Location">
+            <EntityTypeMapping TypeName="LocationDBModel.Statut_Location">
+              <MappingFragment StoreEntitySet="Statut_Location">
+                <ScalarProperty Name="IdStatut" ColumnName="IdStatut" />
+                <ScalarProperty Name="Libelle" ColumnName="Libelle" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Voiture">
+            <EntityTypeMapping TypeName="LocationDBModel.Voiture">
+              <MappingFragment StoreEntitySet="Voiture">
+                <ScalarProperty Name="IdVoiture" ColumnName="IdVoiture" />
+                <ScalarProperty Name="IdCategorie" ColumnName="IdCategorie" />
+                <ScalarProperty Name="IdAgence" ColumnName="IdAgence" />
+                <ScalarProperty Name="NomCommercial" ColumnName="NomCommercial" />
+                <ScalarProperty Name="NombrePlaces" ColumnName="NombrePlaces" />
+                <ScalarProperty Name="NombrePortes" ColumnName="NombrePortes" />
+                <ScalarProperty Name="BoiteVitesse" ColumnName="BoiteVitesse" />
+                <ScalarProperty Name="Autonomie" ColumnName="Autonomie" />
+                <ScalarProperty Name="CapaciteCoffre" ColumnName="CapaciteCoffre" />
+                <ScalarProperty Name="Carburant" ColumnName="Carburant" />
+                <ScalarProperty Name="NombreChevaux" ColumnName="NombreChevaux" />
+                <ScalarProperty Name="KilometrageParDefaut" ColumnName="KilometrageParDefaut" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="DateSortie" ColumnName="DateSortie" />
+                <ScalarProperty Name="DateCreation" ColumnName="DateCreation" />
+                <ScalarProperty Name="DateModification" ColumnName="DateModification" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="ImageURL" ColumnName="ImageURL" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tarif">
+            <EntityTypeMapping TypeName="LocationDBModel.Tarif">
+              <MappingFragment StoreEntitySet="Tarif">
+                <ScalarProperty Name="TarifTtc" ColumnName="TarifTtc" />
+                <ScalarProperty Name="Semaine" ColumnName="Semaine" />
+                <ScalarProperty Name="JourSemaine" ColumnName="JourSemaine" />
+                <ScalarProperty Name="IdVoiture" ColumnName="IdVoiture" />
+                <ScalarProperty Name="IdTarif" ColumnName="IdTarif" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Assurance">
+            <EntityTypeMapping TypeName="LocationDBModel.Assurance">
+              <MappingFragment StoreEntitySet="Assurance">
+                <ScalarProperty Name="DepotGarantie" ColumnName="DepotGarantie" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="PrixTtc" ColumnName="PrixTtc" />
+                <ScalarProperty Name="Franchise" ColumnName="Franchise" />
+                <ScalarProperty Name="Libelle" ColumnName="Libelle" />
+                <ScalarProperty Name="IdAssurance" ColumnName="IdAssurance" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="VoitureAssurance" TypeName="LocationDBModel.VoitureAssurance" StoreEntitySet="VoitureAssurance">
+            <EndProperty Name="Voiture">
+              <ScalarProperty Name="IdVoiture" ColumnName="IdVoiture" />
+            </EndProperty>
+            <EndProperty Name="Assurance">
+              <ScalarProperty Name="IdAssurance" ColumnName="IdAssurance" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="VoitureOptions" TypeName="LocationDBModel.VoitureOptions" StoreEntitySet="VoitureOptions">
+            <EndProperty Name="Voiture">
+              <ScalarProperty Name="IdVoiture" ColumnName="IdVoiture" />
+            </EndProperty>
+            <EndProperty Name="Options">
+              <ScalarProperty Name="IdOption" ColumnName="IdOption" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Aucun" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

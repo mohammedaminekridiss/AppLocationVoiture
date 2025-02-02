@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="d65f614f385b4ec29586823e223bf581" Name="Diagram1">
+        <EntityTypeShape EntityType="LocationDBModel.Administrateur" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="LocationDBModel.Agence" Width="1.5" PointX="0.75" PointY="9.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="LocationDBModel.AgenceRestitution" Width="1.5" PointX="5.25" PointY="14.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="LocationDBModel.Categorie_Voiture" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="LocationDBModel.Client" Width="1.5" PointX="6" PointY="6.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="LocationDBModel.Horaires" Width="1.5" PointX="3" PointY="8" IsExpanded="true" />
+        <EntityTypeShape EntityType="LocationDBModel.Location" Width="1.5" PointX="8.25" PointY="12.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="LocationDBModel.Options" Width="1.5" PointX="6" PointY="24.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="LocationDBModel.Paiement" Width="1.5" PointX="10.5" PointY="13.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="LocationDBModel.Parametre" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="LocationDBModel.Promotion" Width="1.5" PointX="6" PointY="26.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="LocationDBModel.Statut_Location" Width="1.5" PointX="2.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="LocationDBModel.Voiture" Width="1.5" PointX="3" PointY="11.875" IsExpanded="true" />
+        <AssociationConnector Association="LocationDBModel.FK_AgenceRestitution_Agence" ManuallyRouted="false" />
+        <AssociationConnector Association="LocationDBModel.FK_Horaires_Agence" ManuallyRouted="false" />
+        <AssociationConnector Association="LocationDBModel.FK_Voiture_Agence" ManuallyRouted="false" />
+        <AssociationConnector Association="LocationDBModel.FK_AgenceRestitution_Voiture" ManuallyRouted="false" />
+        <AssociationConnector Association="LocationDBModel.FK_Location_Client" ManuallyRouted="false" />
+        <AssociationConnector Association="LocationDBModel.FK_Location_Option" ManuallyRouted="false" />
+        <AssociationConnector Association="LocationDBModel.FK_Location_Promotion" ManuallyRouted="false" />
+        <AssociationConnector Association="LocationDBModel.FK_Location_Voiture" ManuallyRouted="false" />
+        <AssociationConnector Association="LocationDBModel.FK_Paiement_Location" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="LocationDBModel.Tarif" Width="1.5" PointX="5.25" PointY="17.625" />
+        <AssociationConnector Association="LocationDBModel.FK_Tarif_Voiture" />
+        <EntityTypeShape EntityType="LocationDBModel.Assurance" Width="1.5" PointX="5.375" PointY="0.75" />
+        <AssociationConnector Association="LocationDBModel.VoitureAssurance" />
+        <AssociationConnector Association="LocationDBModel.VoitureOptions" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

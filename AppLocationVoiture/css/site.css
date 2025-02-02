@@ -1,0 +1,52 @@
+﻿body {
+}
+
+.caracteristique {
+    display: inline;
+    margin-right: 5px;
+}
+
+.heure_select {
+    padding: .375rem .5rem;
+}
+
+.pad0 {
+    padding: 0;
+}
+
+.text-right {
+    text-align: right;
+}
+
+.step {
+    margin-right: 4px;
+    display: inline-block;
+    background-color: #bfbfbf;
+    border-radius: 5px 0;
+    color: #fff;
+    height: 24px;
+    min-width: 24px;
+    text-align: center;
+}
+
+.step_container {
+    padding: 10px 15px;
+    border: solid 1px #dedede;
+    border-radius: 10px;
+    min-height: 120px;
+}
+    .step_container.actif {
+        border: solid 1px #090;
+    }
+    .step_container.actif .step {
+
+        background-color:#090;
+       
+    }
+.bloc_assurance {
+    border: solid 1px #dedede;
+    border-radius: 10px;
+    text-align: center;
+    padding: 10px;
+    margin-top:30px;
+}
